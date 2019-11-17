@@ -13,7 +13,7 @@ module.exports = {
         POSTGRES_USER: 'tentit',
         POSTGRES_PASSWORD: 'tentit',
         POSTGRES_DB: 'tentit_dev',
-        PGHOST: 'db'
+        PGHOST: 'localhost'
       },
       node_args: '--inspect=0.0.0.0:9230'
     }

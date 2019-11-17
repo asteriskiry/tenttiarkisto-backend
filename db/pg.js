@@ -27,7 +27,7 @@ const getDbName = () => {
 
 const connectionOptions = {
   user: process.env.PGUSER || 'tentit',
-  host: process.env.PGHOST || 'db',
+  host: process.env.PGHOST || 'localhost',
   password: process.env.PGPASSWORD || 'tentit',
   database: getDbName(),
   port: process.env.PGPORT || 54321
