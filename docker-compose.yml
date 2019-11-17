@@ -1,0 +1,13 @@
+version: '3.5'
+ 
+services:
+  db:
+    image: postgres
+    container_name: tenttiarkisto_db
+    restart: always
+    environment:
+      POSTGRES_USER: tentit
+      POSTGRES_PASSWORD: tentit
+      POSTGRES_DB: tentit_dev
+    ports:
+      - '54321:5432'
