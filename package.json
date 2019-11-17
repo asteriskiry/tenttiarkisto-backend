@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "pm2 start tenttiarkisto_dev.config.js",
+    "stop": "pm2 stop all",
     "log": "pm2 logs",
     "restart-and-log": "pm2 restart all && pm2 logs",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "initialize-db": "node ./db/initialize-db.js"
+    "initialize-db": "NODE_ENV=development node ./db/initialize-db.js"
   },
   "repository": {
     "type": "git",
