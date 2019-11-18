@@ -1,0 +1,2 @@
+GET http://localhost:3002/api/files
+content-type: application/json
