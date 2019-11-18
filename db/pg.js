@@ -32,6 +32,7 @@ const connectionOptions = {
   database: getDbName(),
   port: process.env.PGPORT || 54321
 }
+
 const db = pgp(connectionOptions)
 
 module.exports = {
