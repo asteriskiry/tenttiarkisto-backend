@@ -1,11 +1,12 @@
 const { checkSchema } = require('express-validator')
-const { getValidator, getStringValidatorSchema, getIntValidatorSchema, setIsOptional } = require('../helpers/validatorHelpers')
+const { getValidator, getStringValidatorSchema, getIntValidatorSchema, setIsOptional } = require('../../helpers/validatorHelpers')
 
 const schema = {
-  fileName: getStringValidatorSchema('Tiedostonimi'),
+  filename: getStringValidatorSchema('Tiedostonimi'),
   fileType: getStringValidatorSchema('Tiedostotyyppi'),
   description: setIsOptional(getStringValidatorSchema('Kuvaus')),
-  size: getIntValidatorSchema('Tiedostokoko')
+  size: getIntValidatorSchema('Tiedostokoko'),
+  courseId: setIsOptional(getIntValidatorSchema('Kurssi'))
 }
 
 const validateCreate = () =>

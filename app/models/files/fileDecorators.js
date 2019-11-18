@@ -1,18 +1,21 @@
-const { formatOrNull } = require('../helpers/helpers')
-const decorate = file => {
-  const { file_id: id, file_data: fileData } = file
+const { formatOrNull } = require('../../helpers/helpers')
+const decorate = fileResult => {
+  const { file_id: id,
+    course_id: courseId,
+    file_data: fileData,
+    created_at: createdAt,
+    updated_at: updatedAt } = fileResult
   const {
     uuid,
     filename,
     fileType,
     filePath,
     size,
-    createdAt,
-    updatedAt,
     description
   } = fileData
   return {
     id,
+    courseId,
     uuid,
     filename,
     fileType,
@@ -24,8 +27,8 @@ const decorate = file => {
   }
 }
 
-const decorateList = files =>
-  files.map(decorate)
+const decorateList = fileResults =>
+  fileResults.map(decorate)
 
 
 module.exports = {

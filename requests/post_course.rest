@@ -1,0 +1,7 @@
+POST http://localhost:3002/api/courses
+content-type: application/json
+
+{
+  "name": "Insinöörityön perusteet",
+  "subjectId": 1
+}
