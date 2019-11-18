@@ -1,18 +1,15 @@
 const { Model, DataTypes } = require('sequelize');
-const Exam = require('./Exam')
-const Subject = require('./Subject')
 
 const Course = (sequelize) => {
     class Course extends Model {}
     Course.init({
-        //subject: Subject,
-        code: DataTypes.STRING,
-        name: DataTypes.STRING,
+        course_id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+        course_data: DataTypes.JSONB
         // createdBy: 
         // updatedBy: 
-    }, { sequelize, modelName: 'course', tableName: 'course', timestamps: true });
+    }, { sequelize, modelName: 'course', tableName: 'course', timestamps: true, underscored: true });
     return Course
 }
 
 module.exports = Course
-
+  

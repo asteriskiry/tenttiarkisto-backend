@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require('sequelize');
-const Exam = require('./Exam')
 
 const File = (sequelize) => {
     class File extends Model {}
@@ -10,7 +9,7 @@ const File = (sequelize) => {
             // createdBy: 
             // updatedBy: 
         }, 
-        { sequelize, modelName: 'file', tableName: 'file', timestamps: true }
+        { sequelize, modelName: 'file', tableName: 'file', timestamps: true, underscored: true }
     )
     return File
 }
