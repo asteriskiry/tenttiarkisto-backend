@@ -30,12 +30,14 @@ const createModelWithRelation = (tableName, relationTableName) => {
   const create = (db, data) => {
     const { [relationIdFromData]: relationId, ...modelData } = data
     const createdAt = now()
-    const sql = `INSERT INTO ${tableName} (${modelDataField}, ${relationIdField}, created_at)
-      VALUES ($[modelData], $[relationId], $[createdAt] ) RETURNING ${modelIdField}`
+    const updatedAt = now()
+    const sql = `INSERT INTO ${tableName} (${modelDataField}, ${relationIdField}, created_at, updated_at)
+      VALUES ($[modelData], $[relationId], $[createdAt], $[updatedAt] ) RETURNING ${modelIdField}`
     const params = {
       modelData,
       relationId,
-      createdAt
+      createdAt,
+      updatedAt
     }
     return db.one(sql, params)
       .then(result => model.findById(db, result[modelIdField]))

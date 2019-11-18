@@ -24,9 +24,10 @@ const createSimpleModel = (tableName) => {
 
   const create = (db, data) => {
     const createdAt = now()
-    const sql = `INSERT INTO ${tableName} (${modelDataField}, created_at)
-      VALUES ($[data], $[createdAt]) RETURNING ${modelIdField}`
-    const params = { data, createdAt }
+    const updatedAt = now()
+    const sql = `INSERT INTO ${tableName} (${modelDataField}, created_at, updated_at)
+      VALUES ($[data], $[createdAt], $[updatedAt]) RETURNING ${modelIdField}`
+    const params = { data, createdAt, updatedAt }
     return db.one(sql, params)
       .then(result => model.findById(db, result[modelIdField]))
   }
