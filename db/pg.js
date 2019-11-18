@@ -1,11 +1,23 @@
 const monitor = require('pg-monitor')
 
-const pgp = require('pg-promise')()
+const enableMonitoring = ['development', 'test'].includes(process.env.NODE_ENV) || process.env.MONITOR_PG
+const log = require('simple-node-logger').createSimpleFileLogger(`logs/db_${process.env.NODE_ENV}.log`)
 
-if(process.env.PG_MONITOR) {
-  monitor.attach(options)
-  monitor.setTheme('matrix')
+const pgPromiseOptions = {
+  capSQL: true
 }
+
+const pgp = require('pg-promise')(pgPromiseOptions)
+
+const setupDbMonitoring = (options) => {
+  monitor.attach(options, ['query', 'error'])
+  monitor.setTheme('matrix')
+  monitor.setLog((msg, info) => {
+    log.info(info.text)
+    info.display = false
+  })
+}
+enableMonitoring && setupDbMonitoring(pgPromiseOptions)
 
 const getDbName = () => {
   switch(process.env.NODE_ENV) {
