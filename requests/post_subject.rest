@@ -1,0 +1,7 @@
+POST http://localhost:3002/api/subjects
+content-type: application/json
+
+{
+  "name": "Tietotekniikka"
+}
+ 

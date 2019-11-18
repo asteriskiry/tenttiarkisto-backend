@@ -2,8 +2,9 @@ POST http://localhost:3002/api/files
 content-type: application/json
 
 {
-  "fileName": "testitiedosto.pdf",
+  "filename": "testitiedosto.pdf",
   "fileType": "application/pdf",
   "description": "Tiedoston tiedot frontilta",
-  "size": 1024
+  "size": 1024,
+  "courseId": 1
 }
