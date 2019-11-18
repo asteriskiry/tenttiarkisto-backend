@@ -11,3 +11,11 @@ Postgres database on docker and [pm2](https://pm2.keymetrics.io/docs/usage/quick
    - `docker-compose up`
    - `npm start`
 3. Goto [`localhost:3002`](http://localhost:3002)
+
+## Routes
+
+[API description](./API.md)
+
+## Testing
+
+Folder `requests` contains simple API tests using [REST Client](https://github.com/Huachao/vscode-restclient)
