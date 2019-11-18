@@ -1,0 +1,45 @@
+const router = require('express-promise-router')()
+
+const { validateCreate, validateUpdate } = require('../models/file/fileValidators')
+const { decorate, decorateList } = require('../models/file/fileDecorators')
+const { findById, findAll, save, remove } = require('../models/file/fileModel')
+
+router.get('/', (req, res) =>
+  findAll(req.context.db, null, req.query)
+    .then(decorateList)
+    .then(result => res.send(result)))
+
+const findFileById = (req, _, next, value) =>
+  findById(req.context.db, value)
+    .then(resultRow => {
+      req.resultRow = resultRow
+      next()
+    })
+
+router.post('/', validateCreate(), (req, res) => {
+  const newItem = {
+    ...req.body
+  }
+  return save(req.context.db, newItem, req.user)
+    .then(decorate)
+    .then(result => res.status(201).send(result))
+})
+
+router.put('/:fileId', validateUpdate(), (req, res) => {
+  const toSave = { ...req.body }
+  const oldItem = decorate(req.resultRow)
+
+  return save(req.context.db, { ...oldItem, ...toSave }, req.user, req.params.fileId)
+    .then(decorate)
+    .then(result => res.send(result))
+})
+
+router.delete('/:fileId', (req, res) => {
+  const { fileId } = req.params
+  return remove(req.context.db, fileId)
+    .then(() => res.status(204).send())
+})
+
+router.param('fileId', findFileById)
+
+module.exports = router
