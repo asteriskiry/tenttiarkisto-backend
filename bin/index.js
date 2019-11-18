@@ -10,6 +10,9 @@ app.set('port', port)
 
 const { db } = require('../db/pg')
 
+const sequelize = require('../db/sequelize')
+if (process.env.MODEL_BOOTSTRAP) require('../bootstrap/modelBootstrap')(sequelize)
+
 const server = http.createServer(app)
 server.on('close', () => {
   db.$pool.end()
