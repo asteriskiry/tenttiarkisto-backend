@@ -10,8 +10,12 @@ app.set('port', port)
 
 const { db } = require('../db/pg')
 
-const sequelize = require('../db/sequelize')
-if (process.env.MODEL_BOOTSTRAP) require('../bootstrap/modelBootstrap')(sequelize)
+const runBootstraps = async () => {
+  if (process.env.MODEL_BOOTSTRAP) await require('../bootstrap/modelBootstrap')()
+  if (process.env.DATA_BOOTSTRAP) await require('../bootstrap/bootStrap')()
+}
+
+runBootstraps()
 
 const server = http.createServer(app)
 server.on('close', () => {

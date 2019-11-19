@@ -14,7 +14,9 @@ module.exports = {
         POSTGRES_PASSWORD: 'tentit',
         POSTGRES_DB: 'tentit_dev',
         PGHOST: 'localhost',
-        MODEL_BOOTSTRAP: true
+        DROP_ON_START: true,
+        MODEL_BOOTSTRAP: true,
+        DATA_BOOTSTRAP: true
       },
       node_args: '--inspect=0.0.0.0:9230'
     }
