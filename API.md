@@ -5,6 +5,7 @@
 
 ```
 GET /api/files
+GET /api/files/:fileId # Searches file and redirects to S3 bucket
 POST /api/files
 PUT /api/files/:fileId
 DELETE /api/files/:fileId

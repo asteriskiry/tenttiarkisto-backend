@@ -1,6 +1,6 @@
 const moment = require('moment')
 
-const now = () => moment().format()
+const now = format => moment().format(format)
 
 const formatOrNull = value => value ? moment(value).format() : null
 

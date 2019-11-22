@@ -1,29 +1,36 @@
 
 const router = require('express-promise-router')({ mergeParams: true })
+const generateUuid = require('uuid/v1')
 
+const { now } = require('../helpers/helpers')
 const { validateCreate, validateUpdate } = require('../models/files/fileValidators')
 const { decorate, decorateList } = require('../models/files/fileDecorators')
 const createModelWithRelation = require('../helpers/createModelWithRelation')
+const { createPresignedS3URL, generateFileS3Keys, generateS3Data } = require('../helpers/awsHelpers')
 
 const model = createModelWithRelation('file', 'course')
+
 
 router.get('/', (req, res) =>
   model.findAll(req.context.db, req.params.courseId, req.query)
     .then(decorateList)
     .then(result => res.send(result)))
 
-router.get('/:fileId', (req, res) => 
-  res.send(decorate(req.context.resultRow)))
-
+router.get('/:fileId', (req, res) =>
+  Promise.resolve(decorate(req.context.resultRow))
+    .then(createPresignedS3URL)
+    .then(s3Url => res.redirect(302, s3Url)))
 
 router.post('/', validateCreate(), (req, res) => {
-  const newItem = {
-    courseId: req.params.courseId,
-    ...req.body
+  const fileData = {
+    ...req.body,
+    ...generateFileS3Keys(),
+    courseId: req.params.courseId
   }
-  return model.save(req.context.db, newItem, req.user)
+  return model.save(req.context.db, fileData, req.user)
     .then(decorate)
-    .then(result => res.status(201).send(result))
+    .then(generateS3Data)
+    .then(fileWithS3Data => res.status(201).send(fileWithS3Data))
 })
 
 router.put('/:fileId', validateUpdate(), (req, res) => {
