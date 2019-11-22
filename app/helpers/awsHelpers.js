@@ -1,5 +1,8 @@
 const AWS = require('aws-sdk')
 const moment = require('moment')
+const generateUuid = require('uuid/v1')
+
+const { now } = require('../helpers/helpers')
 
 /** Create and reuse S3 bucket instance after first run */
 let commonS3Bucket
@@ -79,6 +82,7 @@ const deleteFromS3 = file => {
 }
 
 module.exports = {
+  generateFileS3Keys,
   createPresignedS3URL,
   generateS3Data,
   deleteFromS3

@@ -1,8 +1,5 @@
 
 const router = require('express-promise-router')({ mergeParams: true })
-const generateUuid = require('uuid/v1')
-
-const { now } = require('../helpers/helpers')
 const { validateCreate, validateUpdate } = require('../models/files/fileValidators')
 const { decorate, decorateList } = require('../models/files/fileDecorators')
 const createModelWithRelation = require('../helpers/createModelWithRelation')
