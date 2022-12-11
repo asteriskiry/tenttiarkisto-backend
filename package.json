@@ -23,7 +23,7 @@
   "dependencies": {
     "aws-sdk": "^2.574.0",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-promise-router": "^3.0.3",
     "express-validator": "github:Tol1/express-validator#fb4eb3dda1d5c438525661660788220097a0eac9",
     "helmet": "^3.21.2",
